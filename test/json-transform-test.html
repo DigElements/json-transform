@@ -1,0 +1,101 @@
+<!doctype html>
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+
+    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+    <script src="../../web-component-tester/browser.js"></script>
+
+    <link rel="import" href="../json-transform.html">
+  </head>
+  <body>
+
+    <test-fixture id="json-transform-fixture">
+      <template>
+        <json-transform
+          data-out="{{newData}}"
+        </json-transform>        
+      </template>
+
+    </test-fixture>
+
+    <script>
+    (function() {
+      'use strict';
+      suite('<json-transform>', function() {
+
+        var myEl;
+        var dataIn;
+        var transformFunctions;
+
+        setup(function() {
+          myEl = fixture('json-transform-fixture');
+          myEl.dataIn = [
+            {
+              first: 'David',
+              last: 'Flynt',
+              github: ['https://github.com/flyntde', 'https://github.com/DigElements']
+            },
+            {
+              first: 'Rachel',
+              last: 'Artiss',
+              github: 'https://github.com/rartiss55' // note this is not an array
+            }
+          ];
+
+          myEl.transformFunctions = {
+            f1: function(data) {
+              var newData = [];
+              data.forEach(function(record) {
+                newData.push({firstname: record.first, lastname: record.last});
+              });
+              return newData;
+            },
+            f2: function(data) {
+              var githubArr = [];
+              data.forEach(function(record) {
+                githubArr = githubArr.concat(record.github);
+              });
+
+              return {github: githubArr};
+            }
+          };
+        });
+
+
+        test('distributed children', function() {
+          var els = myEl.getContentChildren();
+          assert.equal(els.length, 0, 'zero distributed nodes');
+        });
+
+        test('f1 data transform', function() {
+          var data = myEl.dataOut;
+          assert.equal(data.f1.length, 2);
+          expect(data.f1).to.exist;
+          assert.equal(data.f1[0].firstname, 'David');
+        });
+
+        test('f2 data transform', function() {
+          var data = myEl.dataOut;
+          expect(data.f2).to.exist;
+          expect(data.f2).to.be.an('object');
+          assert.equal(data.f2.github.length, 3);
+          assert.equal(data.f2.github[1], 'https://github.com/DigElements');
+        });
+
+      });
+    })();
+    </script>
+
+  </body>
+</html>
