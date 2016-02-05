@@ -5,8 +5,9 @@ need to munge the results of an AJAX request.
 
 ## Install
 
-* bower i -S DigElements/json-transform
+* bower install --save DigElements/json-transform
 * add a line to import the html file like this:
+
 `<link rel="import" href="../bower_components/json-transform/json-transform.html">`
 
 ## Testing
