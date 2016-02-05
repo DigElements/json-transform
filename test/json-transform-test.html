@@ -82,6 +82,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           var data = myEl.dataOut;
           assert.equal(data.f1.length, 2);
           expect(data.f1).to.exist;
+          expect(data.f1).to.be.an('array');
           assert.equal(data.f1[0].firstname, 'David');
         });
 
