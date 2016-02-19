@@ -20,27 +20,33 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   </head>
   <body>
 
-    <test-fixture id="json-transform-fixture">
+    <test-fixture id="json-transform-fixture-1">
       <template>
         <json-transform
           data-out="{{newData}}"
         </json-transform>        
       </template>
-
     </test-fixture>
 
+    <test-fixture id="json-transform-fixture-2">
+      <template>
+        <json-transform
+          data-out="{{newData}}"
+        </json-transform>        
+      </template>
+    </test-fixture>
     <script>
     (function() {
       'use strict';
       suite('<json-transform>', function() {
 
-        var myEl;
+        var myEl1;
+        var myEl2;
         var dataIn;
-        var transformFunctions;
+
 
         setup(function() {
-          myEl = fixture('json-transform-fixture');
-          myEl.dataIn = [
+          var data = [
             {
               first: 'David',
               last: 'Flynt',
@@ -53,45 +59,52 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             }
           ];
 
-          myEl.transformFunctions = {
-            f1: function(data) {
-              var newData = [];
-              data.forEach(function(record) {
-                newData.push({firstname: record.first, lastname: record.last});
-              });
-              return newData;
-            },
-            f2: function(data) {
-              var githubArr = [];
-              data.forEach(function(record) {
-                githubArr = githubArr.concat(record.github);
-              });
+          myEl1 = fixture('json-transform-fixture-1');
+          myEl2 = fixture('json-transform-fixture-2');
+          myEl1.dataIn = data;
+          myEl2.dataIn = data;
 
-              return {github: githubArr};
-            }
+          var f1 = function(data) {
+            var newData = [];
+            data.forEach(function(record) {
+              newData.push({firstname: record.first, lastname: record.last});
+            });
+            return newData;
           };
+
+          var f2 = function(data) {
+            var githubArr = [];
+            data.forEach(function(record) {
+              githubArr = githubArr.concat(record.github);
+            });
+
+            return {github: githubArr};
+          };
+
+          myEl1.transformFunction = f1;
+          myEl2.transformFunction = f2;
         });
 
 
         test('distributed children', function() {
-          var els = myEl.getContentChildren();
+          var els = myEl1.getContentChildren();
           assert.equal(els.length, 0, 'zero distributed nodes');
         });
 
         test('f1 data transform', function() {
-          var data = myEl.dataOut;
-          assert.equal(data.f1.length, 2);
-          expect(data.f1).to.exist;
-          expect(data.f1).to.be.an('array');
-          assert.equal(data.f1[0].firstname, 'David');
+          var data = myEl1.dataOut;
+          assert.equal(data.length, 2);
+          expect(data).to.exist;
+          expect(data).to.be.an('array');
+          assert.equal(data[0].firstname, 'David');
         });
 
         test('f2 data transform', function() {
-          var data = myEl.dataOut;
-          expect(data.f2).to.exist;
-          expect(data.f2).to.be.an('object');
-          assert.equal(data.f2.github.length, 3);
-          assert.equal(data.f2.github[1], 'https://github.com/DigElements');
+          var data = myEl2.dataOut;
+          expect(data).to.exist;
+          expect(data).to.be.an('object');
+          assert.equal(data.github.length, 3);
+          assert.equal(data.github[1], 'https://github.com/DigElements');
         });
 
       });
