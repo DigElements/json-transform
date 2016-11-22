@@ -1,10 +1,10 @@
 {
   "name": "json-transform",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "authors": [
-    "Anonymous <anonymous@example.com>"
+    "Next Century Corporation"
   ],
-  "description": "An element providing a solution to no problem in particular.",
+  "description": "An element providing a way to transform a single JSON object to a new JSON object by applying an adapter function to the original JSON.",
   "keywords": [
     "web-component",
     "polymer",
@@ -12,7 +12,7 @@
   ],
   "main": "json-transform.html",
   "license": "http://polymer.github.io/LICENSE.txt",
-  "homepage": "https://github.com/<USERNAME>/seed-element/",
+  "homepage": "https://github.com/DigElements/json-transform/",
   "ignore": [
     "/.*",
     "/test/"
