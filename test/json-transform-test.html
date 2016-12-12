@@ -40,20 +40,20 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       'use strict';
       suite('<json-transform>', function() {
 
+        var data;
         var myEl1;
         var myEl2;
         var dataIn;
 
-
         setup(function() {
-          var data = [
+          data = [
             {
               first: 'David',
               last: 'Flynt',
               github: ['https://github.com/flyntde', 'https://github.com/DigElements']
             },
             {
-              first: 'Rachel',
+              first: 'R.',
               last: 'Artiss',
               github: 'https://github.com/rartiss55' // note this is not an array
             }
@@ -85,28 +85,34 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           myEl2.transformFunction = f2;
         });
 
+        test('dataIn and transformFunction properties initialized', function() {
+          assert.deepEqual(myEl1.dataIn, data);
+          assert.isFunction(myEl1.transformFunction);
 
-        test('distributed children', function() {
-          var els = myEl1.getContentChildren();
-          assert.equal(els.length, 0, 'zero distributed nodes');
+          assert.deepEqual(myEl2.dataIn, data);
+          assert.isFunction(myEl2.transformFunction);
+        });
+
+        test('no html content within component', function() {
+          assert.equal(myEl1.getContentChildren().length, 0, 'zero distributed nodes');
+          assert.equal(myEl2.getContentChildren().length, 0, 'zero distributed nodes');
         });
 
         test('f1 data transform', function() {
           var data = myEl1.dataOut;
           assert.equal(data.length, 2);
-          expect(data).to.exist;
-          expect(data).to.be.an('array');
-          assert.equal(data[0].firstname, 'David');
+          assert.isDefined(data);
+          assert.isArray(data);
+          assert.deepEqual(data[0], {firstname: 'David', lastname: 'Flynt'});
+          assert.deepEqual(data[1], {firstname: 'R.', lastname: 'Artiss'});
         });
 
         test('f2 data transform', function() {
           var data = myEl2.dataOut;
-          expect(data).to.exist;
-          expect(data).to.be.an('object');
-          assert.equal(data.github.length, 3);
-          assert.equal(data.github[1], 'https://github.com/DigElements');
+          assert.isDefined(data);
+          assert.isObject(data);
+          assert.deepEqual(data, {github: ['https://github.com/flyntde', 'https://github.com/DigElements', 'https://github.com/rartiss55']});
         });
-
       });
     })();
     </script>
