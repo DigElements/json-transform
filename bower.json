@@ -1,14 +1,13 @@
 {
   "name": "json-transform",
-  "version": "0.0.4",
+  "version": "1.0.0",
   "authors": [
     "Next Century Corporation"
   ],
-  "description": "An element providing a way to transform a single JSON object to a new JSON object by applying an adapter function to the original JSON.",
+  "description": "A Polymer Element that transforms a JSON object into another JSON object using a transform function.",
   "keywords": [
     "web-component",
-    "polymer",
-    "seed"
+    "polymer"
   ],
   "main": "json-transform.html",
   "license": "http://polymer.github.io/LICENSE.txt",
@@ -18,10 +17,10 @@
     "/test/"
   ],
   "dependencies": {
-    "polymer": "Polymer/polymer#^1.2.0"
+    "polymer": "Polymer/polymer#^1.7.0"
   },
   "devDependencies": {
-    "iron-component-page": "PolymerElements/iron-component-page#^1.0.0",
-    "web-component-tester": "^3.4.0"
+    "iron-component-page": "PolymerElements/iron-component-page#^1.1.7",
+    "web-component-tester": "^5.0.0"
   }
 }

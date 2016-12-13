@@ -1,32 +1,34 @@
 # json-transform
 
-An element used to perform one or more transformations on JSON.  Useful when you 
-need to munge the results of an AJAX request.
+A Polymer Element that transforms a JSON object into another JSON object using a transform function.
 
-## Install
+### Example
+```html
+<json-transform
+  data-in="[[data]]"
+  data-out="{{newData}}"
+  transform-function="[[transform]]">
+</json-transform>
+```
 
-* bower install --save DigElements/json-transform
-* add a line to import the html file like this:
+### Dependencies
 
-`<link rel="import" href="../bower_components/json-transform/json-transform.html">`
+Dependencies are installed using [Bower](http://bower.io/):
 
-## Testing
+    npm install -g bower
+    bower install
 
-### web-component-tester
+### Testing
 
-The tests are compatible with [web-component-tester](https://github.com/Polymer/web-component-tester).
-Install it via:
+Tests are run using [web-component-tester](https://github.com/Polymer/web-component-tester):
 
     npm install -g web-component-tester
-
-Then, you can run your tests on _all_ of your local browsers via:
-
     wct
 
-#### WCT Tips
+### Demonstration & Documentation
 
-`wct -l chrome` will only run tests in chrome.
+Demonstration and documentation are viewed using [polyserve](https://github.com/PolymerLabs/polyserve):
 
-`wct -p` will keep the browsers alive after test runs (refresh to re-run).
+    npm install -g polyserve
+    polyserve
 
-`wct test/some-file.html` will test only the files you specify.

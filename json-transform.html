@@ -1,16 +1,16 @@
 <link rel="import" href="../polymer/polymer.html">
 
 <!--
-Transform a single JSON object to a new JSON object by applying an
-adapter function to the original JSON.
+A Polymer Element that transforms a JSON object into another JSON object using a transform function.
 
-Example:
-
-    <json-transform
-      data-in="[[data]]"
-      data-out="{{newData}}"
-      transform-function="[[transform]]">
-    </json-transform>
+### Example
+```html
+<json-transform
+  data-in="[[data]]"
+  data-out="{{newData}}"
+  transform-function="[[transform]]">
+</json-transform>
+```
 
 @demo demo/index.html
 -->
@@ -22,14 +22,22 @@ Example:
 
       properties: {
         /**
-         * JSON data, any valid structure
+         * (Required)
+         *
+         * A JSON object.
+         *
+         * @type {Object}
          */
         dataIn: {
           type: Object
         },
 
         /**
-         * the transformed data
+         * (Output)
+         *
+         * The new JSON object.
+         *
+         * @type {Object}
          */
         dataOut: {
           type: Object,
@@ -38,11 +46,12 @@ Example:
         },
 
         /**
-         * 
-         * function that has the following signature:
+         * (Required)
+         *
+         * A function that has the following signature:
          * function (jsondata) { return transformed-jsondata; }
          *
-         * @type {{functionName : function(data)}}
+         * @type {Object}
          */
         transformFunction : {
           type: Object
@@ -53,8 +62,13 @@ Example:
         '_applyTransform(dataIn, transformFunction)'
       ],
 
-      _applyTransform: function(jsondata) {
-        this._setDataOut(this.transformFunction(jsondata));
+      /**
+       * Sets the output data object by applying the transform function to the input data object.
+       *
+       * @private
+       */
+      _applyTransform: function() {
+        this._setDataOut(this.transformFunction(this.dataIn));
       }
 
     });
