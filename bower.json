@@ -1,10 +1,9 @@
 {
   "name": "json-transform",
-  "version": "1.0.0",
-  "authors": [
-    "Next Century Corporation"
-  ],
   "description": "A Polymer Element that transforms a JSON object into another JSON object using a transform function.",
+  "version": "1.0.0",
+  "authors": ["Next Century Corporation"],
+  "license": "Apache-2.0",
   "keywords": [
     "web-component",
     "polymer"
