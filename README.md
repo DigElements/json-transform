@@ -6,7 +6,7 @@ A Polymer Element that transforms a JSON object into another JSON object using a
 ```html
 <json-transform
   data-in="[[data]]"
-  data-out="{{newData}}"
+  data-out="{{output}}"
   transform-function="[[transform]]">
 </json-transform>
 ```

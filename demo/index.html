@@ -18,41 +18,43 @@ limitations under the License.
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
-  <script src="../../webcomponentsjs/webcomponents-lite.min.js"></script>
+  <script src="../../webcomponentsjs/webcomponents-loader.js"></script>
   <link rel="import" href="../json-transform.html">
 </head>
 
 <body unresolved>
-  <template is="dom-bind" id="demo">
-    <json-transform
-      data-in="[[dataIn]]"
-      data-out="{{dataOut}}"
-      transform-function="[[transform]]">
-    </json-transform>
+  <dom-bind id="demo">
+    <script>
+      (function(document) {
+        var demo = document.querySelector('dom-bind');
 
-    <p>DataIn: [[stringify(dataIn)]]</p>
-    <p>Transform Function: return { transformedValue: dataIn.value * 2 }</p>
-    <p>DataOut: [[stringify(dataOut)]]</p>
-  </template>
-
-  <script>
-    (function(document) {
-      var demo = document.querySelector('#demo');
-
-      demo.dataIn = {
-        value: 10
-      };
-
-      demo.transform = function(dataIn) {
-        return {
-          transformedValue : dataIn.value * 2
+        demo.dataIn = {
+          value: 10
         };
-      };
 
-      demo.stringify = function(data) {
-        return JSON.stringify(data);
-      };
-    })(document);
-  </script>
+        demo.transform = function(dataIn) {
+          return {
+            transformedValue : dataIn.value * 2
+          };
+        };
+
+        demo.stringify = function(data) {
+          return JSON.stringify(data);
+        };
+      })(document);
+    </script>
+
+    <template is="dom-bind">
+      <json-transform
+        data-in="[[dataIn]]"
+        data-out="{{dataOut}}"
+        transform-function="[[transform]]">
+      </json-transform>
+
+      <p>DataIn: <strong>[[stringify(dataIn)]]</strong></p>
+      <p>Transform Function: <strong>function(dataIn) { return { transformedValue: dataIn.value * 2 }; }</strong></p>
+      <p>DataOut: <strong>[[stringify(dataOut)]]</strong></p>
+    </template>
+  </dom-bind>
 </body>
 </html>
